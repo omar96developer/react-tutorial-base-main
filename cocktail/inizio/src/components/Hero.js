@@ -13,7 +13,7 @@ const Hero = ({children, img, disableOverlay}) => {
         {children}
       </div>
     </div>
-
+    
   </div>;
 };
 
