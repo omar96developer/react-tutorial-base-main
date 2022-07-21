@@ -6,7 +6,7 @@ import teamImg from "../assets/image/team-img.jpg";
 import useTitle from "../useTitle";
 
 const AboutScreen = () => {
-  useTitle('Chi Siamo');
+  useTitle("Chi Siamo");
   return (
     <>
       <Hero img={image}>
@@ -36,20 +36,22 @@ const AboutScreen = () => {
         </div>
       </section>
       <section className="about-team">
-        <div className="team-img"
-        style={{
-          background: `url(${teamImg})`,
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-        }}></div>
+        <div
+          className="team-img"
+          style={{
+            background: `url(${teamImg})`,
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+          }}
+        ></div>
         <div className="about-team-content container">
           <h3 className="brand-secondary-color">IL NOSTRO TEAM</h3>
-          {teamCards.map((card) => {
-              return (
-                <Card key={card.title} {...card}  />
-              );
+          <div className="card-section">
+            {teamCards.map((card) => {
+              return <Card key={card.title} {...card} />;
             })}
+          </div>
         </div>
       </section>
     </>
