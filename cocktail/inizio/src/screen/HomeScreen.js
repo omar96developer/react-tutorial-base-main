@@ -6,6 +6,7 @@ import Lottie from "react-lottie";
 import animationData from "../assets/animation/drink-animation.json";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context";
+import useTitle from "../useTitle";
 const HomeScreen = () => {
   const { query, isLoading, data, isError, count, searchCocktail, deleteScrollPosition, scrollPosition } =
     useGlobalContext();
@@ -23,6 +24,8 @@ useEffect(()=>{
   }
   
 }, [scrollPosition])
+useTitle('Home');
+
   return (
     <>
       <Hero>

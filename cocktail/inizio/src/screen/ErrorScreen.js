@@ -3,7 +3,10 @@ import styled from "styled-components";
 import Lottie from "react-lottie";
 import animationData from "../assets/animation/not-found.json";
 import { Link } from "react-router-dom";
+import useTitle from "../useTitle";
 const ErrorScreen = () => {
+  useTitle('Pagina Non Trovata');
+
   return <Wrapper>
     <h3>Pagina Non Trovata</h3>
     <Lottie options={

@@ -3,12 +3,128 @@ import { Loading, ErrorMessage } from "../components";
 import { useParams, Link } from "react-router-dom";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
+import useFetch from "../useFetch";
+import useTitle from "../useTitle";
 const SingleCocktailScreen = () => {
-  return <Wrapper>Single Cocktail</Wrapper>;
+  const { id } = useParams();
+  const { isLoading, isError, data } = useFetch(`i=${id}`, true);
+  useTitle(data && data.drinks ? data.drinks[0].strDrink : 'Not Found')
+  if (isLoading) {
+    return (
+      <Wrapper>
+        <Loading></Loading>
+      </Wrapper>
+    );
+  }
+  if (isError) {
+    return (
+      <Wrapper>
+        <div className="container cocktail-content">
+          <header>
+            <Link to="/">
+              <IoArrowBackCircleSharp className="icon"></IoArrowBackCircleSharp>
+            </Link>
+          </header>
+          <ErrorMessage>Cocktail Non Disponibile</ErrorMessage>
+        </div>
+      </Wrapper>
+    );
+  }
+  const {
+    strDrink: name,
+    strCategory: category,
+    strAlcoholic: type,
+    strGlass,
+    strDrinkThumb: image,
+    strIngredient1,
+    strIngredient2,
+    strIngredient3,
+    strIngredient4,
+    strIngredient5,
+    strMeasure1,
+    strMeasure2,
+    strMeasure3,
+    strMeasure4,
+    strMeasure5,
+    strInstructionsIT,
+    strInstructions,
+  } = data.drinks[0];
+  const strInstructionsList = [
+    {
+      istruzione: strIngredient1,
+      qty: strMeasure1,
+    },
+    {
+      istruzione: strIngredient2,
+      qty: strMeasure2,
+    },
+    {
+      istruzione: strIngredient3,
+      qty: strMeasure3,
+    },
+    {
+      istruzione: strIngredient4,
+      qty: strMeasure4,
+    },
+    {
+      istruzione: strIngredient5,
+      qty: strMeasure5,
+    },
+  ];
+  return (
+    <Wrapper>
+      <div className="container cocktail-content">
+        <header>
+          <Link to="/">
+            <IoArrowBackCircleSharp className="icon"></IoArrowBackCircleSharp>
+          </Link>
+          <h4 className="back-arrow">Torna In Home</h4>
+        </header>
+        <hr />
+        <div className="cocktail-container">
+          <img src={image} alt={name} className="img" />
+          <div className="cocktail-datails">
+            <div className="spacer">
+              <h2>{name}</h2>
+              <div className="cocktail-type">
+                <p className="">{type}</p>
+                <p className="label">{category}</p>
+                <p className="label">{strGlass}</p>
+              </div>
+              <hr />
+              <div className="spacer">
+                <h4>Ingredienti:</h4>
+                <ul className="instruction-list">
+
+                {strInstructionsList.map((el, index) => {
+                  if (el.istruzione) {
+                    return (
+                      <li key={index}>
+                        <p className="info">
+                          {el.qty} {el.istruzione}
+                        </p>
+                      </li>
+                    );
+                  }
+                })}
+                </ul>
+              </div>
+              <hr />
+              <div className="spacer">
+                <h4>Istruzioni:</h4>
+                <p className="info">{strInstructionsIT ? strInstructionsIT : strInstructions}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`
-  height: auto;
+  min-height: 96vh;
   padding-bottom: 4rem;
   .spacer {
     display: grid;
