@@ -7,7 +7,7 @@ import animationData from "../assets/animation/drink-animation.json";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context";
 const HomeScreen = () => {
-  const { query, isLoading, data, isError, count, searchCocktail } =
+  const { query, isLoading, data, isError, count, searchCocktail, deleteScrollPosition, scrollPosition } =
     useGlobalContext();
 
   const [input, setInput] = useState(query);
@@ -16,7 +16,13 @@ const HomeScreen = () => {
     e.preventDefault();
     searchCocktail(input);
   };
-
+useEffect(()=>{
+  if(scrollPosition){
+    window.scrollTo(0, scrollPosition);
+    deleteScrollPosition();
+  }
+  
+}, [scrollPosition])
   return (
     <>
       <Hero>

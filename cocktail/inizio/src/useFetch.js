@@ -7,18 +7,20 @@ const useFetch = (query, type = false) => {
     const url = type ? singleUrl : searchUrl;
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState([]);
+    console.log(data);
+
     const [count, setCount] = useState(0);
     const [isError, setIsError] = useState(false);
 
     useEffect(() =>{
         (async(query)=>{
             setIsError(false);
-            setIsLoading(false);
+            setIsLoading(true);
             try {
                 const response = await axios.get(`${url}${query}`)
                 setData(response.data);
                 setCount(response.data.drinks.length);
-                console.log(response);
+                /* console.log(response); */
             } catch (err) {
                 setIsError(true);
                 setCount(0);
